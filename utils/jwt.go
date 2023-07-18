@@ -6,7 +6,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func VerifyJwt(token string, secret string) (claims *jwt.Claims, err error) {
+func VerifyJwt(token string, secret string) (claims jwt.MapClaims, err error) {
 	// Parse the token.
 	tokenParsed, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		// Check the signing method.
@@ -25,7 +25,7 @@ func VerifyJwt(token string, secret string) (claims *jwt.Claims, err error) {
 
 	// If the token is valid, return the claims.
 	if tokenParsed.Valid {
-		return &tokenParsed.Claims, nil
+		return tokenParsed.Claims.(jwt.MapClaims), nil
 	}
 
 	// Otherwise, return an error.

@@ -25,9 +25,7 @@ func GetJwtMiddleware(secret string) func(ctx *atreugo.RequestCtx) error {
 			ctx.SetStatusCode(http.StatusForbidden)
 			return fmt.Errorf("not authorized")
 		}
-
 		ctx.SetUserValue("claims", claims)
-
 		return ctx.Next()
 	}
 
