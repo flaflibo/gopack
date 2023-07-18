@@ -31,3 +31,15 @@ func VerifyJwt(token string, secret string) (claims jwt.MapClaims, err error) {
 	// Otherwise, return an error.
 	return nil, fmt.Errorf("invalid token")
 }
+
+func CreateToken(secret string, claims interface{}) (string, error) {
+	signingKey := []byte(secret)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims.(jwt.Claims))
+
+	tokenString, err := token.SignedString(signingKey)
+	if err != nil {
+		return "", err
+	}
+
+	return tokenString, err
+}
