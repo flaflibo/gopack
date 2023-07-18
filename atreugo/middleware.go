@@ -14,7 +14,6 @@ func GetJwtMiddleware(secret string) func(ctx *atreugo.RequestCtx) error {
 
 		authHeader := string(ctx.Request.Header.Peek("Authorization"))
 		authData := strings.Split(authHeader, " ")
-		fmt.Printf("authData: %v\n", authData)
 
 		if len(authData) != 2 {
 			return fmt.Errorf("auth header not valid")
