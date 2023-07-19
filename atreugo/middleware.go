@@ -25,8 +25,17 @@ func GetJwtMiddleware(secret string) func(ctx *atreugo.RequestCtx) error {
 			return fmt.Errorf("not authorized")
 		}
 		ctx.SetUserValue("claims", claims)
+		ctx.Response.Header.Set("Server", "mega-cool-server")
 		return ctx.Next()
 	}
 
 	return f
+}
+
+func GetKeepAliveMiddleware(timeout uint32) func(ctx *atreugo.RequestCtx) error {
+	return func(ctx *atreugo.RequestCtx) error {
+		ctx.Response.Header.Set("Connection", "Keep-Alive")
+		ctx.Response.Header.Set("Keep-Alive", fmt.Sprintf("timeout=%d", timeout))
+		return ctx.Next()
+	}
 }
