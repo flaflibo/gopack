@@ -41,3 +41,7 @@ func (log *Logger) Warn(msg string, fields ...zapcore.Field) {
 func (log *Logger) Error(msg string, fields ...zapcore.Field) {
 	log.Instance.Error(msg, fields...)
 }
+
+func (log *Logger) Fatal(msg string, fields ...zapcore.Field) {
+	log.Instance.Fatal(msg, fields...)
+}
